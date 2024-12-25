@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"git.imooc.com/coding-447/cart/common"
-	"git.imooc.com/coding-447/cart/domain/repository"
-	service2 "git.imooc.com/coding-447/cart/domain/service"
-	"git.imooc.com/coding-447/cart/handler"
-	cart "git.imooc.com/coding-447/cart/proto/cart"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/lihuang0513/micro_cart/common"
+	"github.com/lihuang0513/micro_cart/domain/repository"
+	service2 "github.com/lihuang0513/micro_cart/domain/service"
+	"github.com/lihuang0513/micro_cart/handler"
+	cart "github.com/lihuang0513/micro_cart/proto/cart"
 	"github.com/micro/go-micro/v2"
 	log "github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-micro/v2/registry"
@@ -43,10 +43,8 @@ func main() {
 
 	//数据库连接
 	mysqlInfo := common.GetMysqlFromConsul(consulConfig, "mysql")
-	fmt.Println(mysqlInfo)
 
 	//创建数据库连接
-	//db, err := gorm.Open("mysql", mysqlInfo.User+":"+mysqlInfo.Pwd+"@/"+mysqlInfo.Database+"?charset=utf8&parseTime=True&loc=Local")
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		mysqlInfo.User, mysqlInfo.Pwd, mysqlInfo.Host, mysqlInfo.Port, mysqlInfo.Database)
 

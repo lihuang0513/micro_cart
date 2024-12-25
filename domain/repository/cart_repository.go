@@ -2,8 +2,8 @@ package repository
 
 import (
 	"errors"
-	"git.imooc.com/coding-447/cart/domain/model"
 	"github.com/jinzhu/gorm"
+	"github.com/lihuang0513/micro_cart/domain/model"
 )
 
 type ICartRepository interface {
@@ -80,8 +80,8 @@ func (u *CartRepository) IncrNum(cartID int64, num int64) error {
 //购物车减少商品
 func (u *CartRepository) DecrNum(cartID int64, num int64) error {
 	cart := &model.Cart{ID: cartID}
-	db := u.mysqlDb.Model(cart).Where("num >= ?",num).UpdateColumn("num",gorm.Expr("num - ?",num))
-	if db.Error !=nil {
+	db := u.mysqlDb.Model(cart).Where("num >= ?", num).UpdateColumn("num", gorm.Expr("num - ?", num))
+	if db.Error != nil {
 		return db.Error
 	}
 	if db.RowsAffected == 0 {
